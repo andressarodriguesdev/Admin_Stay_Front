@@ -49,17 +49,8 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
     }
   };
 
-  const formatDateTime = (dateTimeString) => {
-    if (!dateTimeString) return "N/A";
-    const date = new Date(dateTimeString);
-    return date.toLocaleString("pt-BR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
+  const formatDateTime = (dateString) =>
+    new Date(dateString).toLocaleString("pt-BR");
 
   const formatCurrency = (value) => {
     if (value === null || value === undefined) return "R$ 0,00";
@@ -67,6 +58,28 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
       style: "currency",
       currency: "BRL",
     }).format(value);
+  };
+
+  const getStatusColor = (status) => {
+    const colors = {
+      SCHEDULED: "bg-yellow-100 text-yellow-700",
+      IN_USE: "bg-blue-100 text-blue-700",
+      FINISHED: "bg-green-100 text-green-700",
+      CANCELED: "bg-red-100 text-red-700",
+      ABSENCE: "bg-gray-100 text-gray-700",
+    };
+    return colors[status?.toUpperCase()] || "bg-gray-100 text-gray-700";
+  };
+
+  const translateStatus = (status) => {
+    const map = {
+      SCHEDULED: "Agendado",
+      IN_USE: "Em Uso",
+      FINISHED: "Finalizado",
+      CANCELED: "Cancelado",
+      ABSENCE: "Ausência",
+    };
+    return map[status?.toUpperCase()] || status;
   };
 
   if (carregando) {
@@ -108,7 +121,7 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
           </p>
         ) : (
           <>
-            {/* TABELA: só para telas maiores que 900px */}
+            {/* TABELA */}
             {isDesktop && (
               <div className="overflow-x-auto rounded-xl shadow bg-white">
                 <table className="min-w-full text-left">
@@ -139,7 +152,13 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
                         <td className="px-4 py-3">{formatDateTime(reserva.checkin)}</td>
                         <td className="px-4 py-3">{formatDateTime(reserva.checkout)}</td>
                         <td className="px-4 py-3">{formatCurrency(reserva.totalValue)}</td>
-                        <td className="px-4 py-3">{reserva.status}</td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs ${getStatusColor(reserva.status)}`}
+                          >
+                            {translateStatus(reserva.status)}
+                          </span>
+                        </td>
                         <td className="px-4 py-3 text-right">
                           <button
                             onClick={(e) => {
@@ -158,7 +177,7 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
               </div>
             )}
 
-            {/* CARDS: só para telas menores que 900px */}
+            {/* CARDS */}
             {!isDesktop && (
               <div className="space-y-4 mt-2">
                 {reservas.map((reserva) => (
@@ -185,8 +204,13 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
                     <p className="text-sm">
                       <strong>Valor Total:</strong> {formatCurrency(reserva.totalValue)}
                     </p>
-                    <p className="text-sm">
-                      <strong>Status:</strong> {reserva.status}
+                    <p className="text-sm flex items-center gap-2">
+                      <strong>Status:</strong>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${getStatusColor(reserva.status)}`}
+                      >
+                        {translateStatus(reserva.status)}
+                      </span>
                     </p>
 
                     <button
@@ -203,7 +227,7 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
               </div>
             )}
 
-            {/* Detalhes da reserva selecionada */}
+            {/* Detalhes */}
             {reservaSelecionada && (
               <div className="mt-8 p-6 bg-white rounded-xl shadow max-w-2xl mx-auto">
                 <h2 className="text-lg font-semibold mb-4 text-[#4B3CA4]">
@@ -227,7 +251,14 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
                 <p><strong>Check-in:</strong> {formatDateTime(reservaSelecionada.checkin)}</p>
                 <p><strong>Check-out:</strong> {formatDateTime(reservaSelecionada.checkout)}</p>
                 <p><strong>Valor Total:</strong> {formatCurrency(reservaSelecionada.totalValue)}</p>
-                <p><strong>Status:</strong> {reservaSelecionada.status}</p>
+                <p>
+                  <strong>Status:</strong>{" "}
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs ${getStatusColor(reservaSelecionada.status)}`}
+                  >
+                    {translateStatus(reservaSelecionada.status)}
+                  </span>
+                </p>
                 <p><strong>Criado em:</strong> {formatDateTime(reservaSelecionada.createAt)}</p>
 
                 <button

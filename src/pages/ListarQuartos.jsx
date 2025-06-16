@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/Api";
 
-export default function ListarQuartos({
-  onVoltar,
-  onEditar,
-  onMenuToggle,
-}) {
+export default function ListarQuartos({ onVoltar, onEditar, onMenuToggle }) {
   const [quartos, setQuartos] = useState([]);
 
   useEffect(() => {
@@ -14,7 +10,7 @@ export default function ListarQuartos({
 
   const buscarQuartos = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/rooms");
+      const response = await api.get("/rooms");
       setQuartos(response.data);
     } catch (error) {
       console.error("Erro ao buscar quartos:", error);
@@ -27,8 +23,8 @@ export default function ListarQuartos({
     if (!confirmar) return;
 
     try {
-      await axios.delete(`http://localhost:8080/rooms/${id}`);
-      buscarQuartos(); // Recarrega a lista após exclusão
+      await api.delete(`/rooms/${id}`);
+      buscarQuartos(); // Atualiza lista
     } catch (error) {
       console.error("Erro ao excluir quarto:", error);
       alert("Erro ao excluir o quarto.");
@@ -63,7 +59,7 @@ export default function ListarQuartos({
         </button>
       </div>
 
-      {/* Conteúdo principal */}
+      {/* Conteúdo */}
       <div className="px-4 md:px-8 lg:px-16 py-6 max-w-5xl mx-auto w-full">
         <h1 className="text-2xl font-bold tracking-widest text-[#1E1E1E] mb-4 text-center md:text-left">
           Quartos

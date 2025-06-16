@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import axios from "axios";
+import api from "../services/api";
 
 export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
   const [numero, setNumero] = useState("");
@@ -9,7 +9,6 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
   const [valor, setValor] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Preenche os campos caso esteja editando
   useEffect(() => {
     if (quarto) {
       setNumero(quarto.number || "");
@@ -26,7 +25,7 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
     e.preventDefault();
 
     const dadosQuarto = {
-      id: quarto?.id || 0, // Swagger exige ID mesmo no POST
+      id: quarto?.id || 0,
       number: numero,
       type: tipo.toUpperCase(),
       dailyRate: parseFloat(valor),
@@ -35,12 +34,10 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
 
     try {
       if (quarto && quarto.id) {
-        // Edição
-        await axios.put(`http://localhost:8080/rooms/${quarto.id}`, dadosQuarto);
+        await api.put(`/rooms/${quarto.id}`, dadosQuarto);
         alert("Quarto atualizado com sucesso!");
       } else {
-        // Criação
-        await axios.post("http://localhost:8080/rooms", dadosQuarto);
+        await api.post("/rooms", dadosQuarto);
         alert("Quarto cadastrado com sucesso!");
       }
 
@@ -53,12 +50,12 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
 
   return (
     <div className="flex bg-[#F9F6EF] min-h-screen font-[Poppins]">
-      {/* Header mobile fixo */}
+      {/* Header mobile */}
       <div className="md:hidden fixed top-0 left-0 w-full z-50">
         <Header onMenuToggle={() => setIsSidebarOpen((prev) => !prev)} />
       </div>
 
-      {/* Sidebar desktop fixa */}
+      {/* Sidebar desktop */}
       <div className="hidden md:block w-64 fixed top-0 left-0 h-full z-40">
         <Sidebar onLogout={onLogout} onNavigate={onNavigate} />
       </div>

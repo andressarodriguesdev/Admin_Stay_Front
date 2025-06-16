@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-poppins;
+  overflow-x: hidden;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}

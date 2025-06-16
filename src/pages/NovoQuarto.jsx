@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import api from "../services/api";
+import api from "../services/Api";
 
 export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
   const [numero, setNumero] = useState("");

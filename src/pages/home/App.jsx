@@ -237,6 +237,7 @@ function App() {
             onLogout={handleLogout}
             onNavigate={navegarPara}
             onMenuToggle={toggleMenu}
+            onNovoCliente={() => setPage("novoCliente")}
           />
         );
       case "novoQuarto":
@@ -262,6 +263,7 @@ function App() {
             onLogout={handleLogout}
             onNavigate={navegarPara}
             onMenuToggle={toggleMenu}
+            onNovoQuarto={() => setPage("novoQuarto")}
           />
         );
       case "novaReserva":
@@ -280,6 +282,7 @@ function App() {
             onLogout={handleLogout}
             onNavigate={navegarPara}
             onMenuToggle={toggleMenu}
+            onNovaReserva={() => setPage("novaReserva")}
           />
         );
       default:

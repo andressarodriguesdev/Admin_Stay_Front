@@ -6,9 +6,11 @@ export default function ListarClientes({
   onVoltar,
   onEditar,
   onMenuToggle,
+  onNovoCliente,
 }) {
   const [clientes, setClientes] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  
 
   useEffect(() => {
     async function carregarClientes() {
@@ -45,9 +47,19 @@ export default function ListarClientes({
       </div>
 
       <div className="p-4 sm:p-6 max-w-6xl mx-auto w-full">
-        <h1 className="text-2xl font-bold text-[#1E1E1E] mb-6 tracking-widest">
-          Clientes cadastrados
-        </h1>
+        <div className="flex items-center justify-between mb-4 max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold text-[#1E1E1E] tracking-widest">
+            Clientes cadastrados
+          </h1>
+          <button
+            // 👇 faltou isso
+            onClick={onNovoCliente}
+            className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-md hover:shadow-lg hover:brightness-110 hover:scale-105 transition-all duration-300"
+          >
+            + Novo Cliente
+          </button>
+        </div>
+
         <hr className="my-4 border-t border-gray-300" />
 
         {carregando ? (
@@ -80,7 +92,7 @@ export default function ListarClientes({
                 )}
                 <div className="flex flex-wrap gap-3 mt-3">
                   <button
-                    onClick={() => onEditar(cliente)}
+                    onClick={() => onEditar && onEditar(cliente)}
                     className="px-3 py-1 bg-[#C8BFE7] text-[#1E1E1E] rounded-full text-sm hover:bg-[#b5a8db]"
                   >
                     Editar

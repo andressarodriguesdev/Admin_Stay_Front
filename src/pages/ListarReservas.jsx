@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import HeaderMobile from "../components/Header";
 import api from "../services/Api";
 
-export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
+export default function ListarReservas({
+  onVoltarDashboard,
+  onMenuToggle,
+  onNovaReserva,
+}) {
   const [reservas, setReservas] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
   const [reservaSelecionada, setReservaSelecionada] = useState(null);
-  const [isDesktop, setIsDesktop] = useState(() =>
-    window.matchMedia("(min-width: 900px)").matches
+  const [isDesktop, setIsDesktop] = useState(
+    () => window.matchMedia("(min-width: 900px)").matches
   );
 
   useEffect(() => {
@@ -26,7 +30,9 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
         setReservas(response.data);
       } catch (error) {
         console.error("Erro ao carregar reservas:", error);
-        setErro("Erro ao carregar reservas. Verifique se o backend está rodando.");
+        setErro(
+          "Erro ao carregar reservas. Verifique se o backend está rodando."
+        );
       } finally {
         setCarregando(false);
       }
@@ -44,7 +50,10 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
         alert("Reserva excluída com sucesso!");
       } catch (error) {
         console.error("Erro ao excluir reserva:", error);
-        alert("Erro ao excluir reserva: " + (error.response?.data?.message || error.message));
+        alert(
+          "Erro ao excluir reserva: " +
+            (error.response?.data?.message || error.message)
+        );
       }
     }
   };
@@ -106,12 +115,16 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
 
       <div className="px-4 pt-6 max-w-6xl mx-auto">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-[#4B3CA4]">
-            Lista de Reservas
-          </h1>
-          <p className="text-sm text-gray-600 mt-2">
-            Veja abaixo todas as reservas cadastradas no sistema.
-          </p>
+          <div className="flex items-center justify-between mb-4 max-w-4xl mx-auto">
+            <h1 className="text-2xl font-bold text-[#4B3CA4]">Reservas</h1>
+            <button
+              onClick={onNovaReserva}
+              className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-md hover:shadow-lg hover:brightness-110 hover:scale-105 transition-all duration-300"
+            >
+              + Nova Reserva
+            </button>
+          </div>
+          
           <hr className="my-4 border-t border-gray-300" />
         </div>
 
@@ -147,14 +160,27 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
                         }`}
                       >
                         <td className="px-4 py-3">{reserva.id}</td>
-                        <td className="px-4 py-3">{reserva.customer?.name || `ID: ${reserva.customer?.id}`}</td>
-                        <td className="px-4 py-3">{reserva.room?.number || "N/A"}</td>
-                        <td className="px-4 py-3">{formatDateTime(reserva.checkin)}</td>
-                        <td className="px-4 py-3">{formatDateTime(reserva.checkout)}</td>
-                        <td className="px-4 py-3">{formatCurrency(reserva.totalValue)}</td>
+                        <td className="px-4 py-3">
+                          {reserva.customer?.name ||
+                            `ID: ${reserva.customer?.id}`}
+                        </td>
+                        <td className="px-4 py-3">
+                          {reserva.room?.number || "N/A"}
+                        </td>
+                        <td className="px-4 py-3">
+                          {formatDateTime(reserva.checkin)}
+                        </td>
+                        <td className="px-4 py-3">
+                          {formatDateTime(reserva.checkout)}
+                        </td>
+                        <td className="px-4 py-3">
+                          {formatCurrency(reserva.totalValue)}
+                        </td>
                         <td className="px-4 py-3">
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${getStatusColor(reserva.status)}`}
+                            className={`px-2 py-1 rounded-full text-xs ${getStatusColor(
+                              reserva.status
+                            )}`}
                           >
                             {translateStatus(reserva.status)}
                           </span>
@@ -190,24 +216,30 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
                       <strong>ID:</strong> {reserva.id}
                     </p>
                     <p className="text-sm">
-                      <strong>Cliente:</strong> {reserva.customer?.name || `ID: ${reserva.customer?.id}`}
+                      <strong>Cliente:</strong>{" "}
+                      {reserva.customer?.name || `ID: ${reserva.customer?.id}`}
                     </p>
                     <p className="text-sm">
                       <strong>Quarto:</strong> {reserva.room?.number || "N/A"}
                     </p>
                     <p className="text-sm">
-                      <strong>Check-in:</strong> {formatDateTime(reserva.checkin)}
+                      <strong>Check-in:</strong>{" "}
+                      {formatDateTime(reserva.checkin)}
                     </p>
                     <p className="text-sm">
-                      <strong>Check-out:</strong> {formatDateTime(reserva.checkout)}
+                      <strong>Check-out:</strong>{" "}
+                      {formatDateTime(reserva.checkout)}
                     </p>
                     <p className="text-sm">
-                      <strong>Valor Total:</strong> {formatCurrency(reserva.totalValue)}
+                      <strong>Valor Total:</strong>{" "}
+                      {formatCurrency(reserva.totalValue)}
                     </p>
                     <p className="text-sm flex items-center gap-2">
                       <strong>Status:</strong>
                       <span
-                        className={`px-2 py-1 rounded-full text-xs ${getStatusColor(reserva.status)}`}
+                        className={`px-2 py-1 rounded-full text-xs ${getStatusColor(
+                          reserva.status
+                        )}`}
                       >
                         {translateStatus(reserva.status)}
                       </span>
@@ -233,33 +265,69 @@ export default function ListarReservas({ onVoltarDashboard, onMenuToggle }) {
                 <h2 className="text-lg font-semibold mb-4 text-[#4B3CA4]">
                   Detalhes da Reserva
                 </h2>
-                <p><strong>ID:</strong> {reservaSelecionada.id}</p>
-                <p><strong>Cliente:</strong> {reservaSelecionada.customer?.name || `ID: ${reservaSelecionada.customer?.id}`}</p>
+                <p>
+                  <strong>ID:</strong> {reservaSelecionada.id}
+                </p>
+                <p>
+                  <strong>Cliente:</strong>{" "}
+                  {reservaSelecionada.customer?.name ||
+                    `ID: ${reservaSelecionada.customer?.id}`}
+                </p>
                 {reservaSelecionada.customer?.cpf && (
-                  <p><strong>CPF:</strong> {reservaSelecionada.customer.cpf}</p>
+                  <p>
+                    <strong>CPF:</strong> {reservaSelecionada.customer.cpf}
+                  </p>
                 )}
                 {reservaSelecionada.customer?.telefone && (
-                  <p><strong>Telefone:</strong> {reservaSelecionada.customer.telefone}</p>
+                  <p>
+                    <strong>Telefone:</strong>{" "}
+                    {reservaSelecionada.customer.telefone}
+                  </p>
                 )}
                 {reservaSelecionada.customer?.email && (
-                  <p><strong>E-mail:</strong> {reservaSelecionada.customer.email}</p>
+                  <p>
+                    <strong>E-mail:</strong> {reservaSelecionada.customer.email}
+                  </p>
                 )}
                 <hr className="my-3" />
-                <p><strong>Quarto:</strong> {reservaSelecionada.room?.number || "N/A"}</p>
-                <p><strong>Tipo:</strong> {reservaSelecionada.room?.type || "N/A"}</p>
-                <p><strong>Valor Diária:</strong> {formatCurrency(reservaSelecionada.room?.dailyRate)}</p>
-                <p><strong>Check-in:</strong> {formatDateTime(reservaSelecionada.checkin)}</p>
-                <p><strong>Check-out:</strong> {formatDateTime(reservaSelecionada.checkout)}</p>
-                <p><strong>Valor Total:</strong> {formatCurrency(reservaSelecionada.totalValue)}</p>
+                <p>
+                  <strong>Quarto:</strong>{" "}
+                  {reservaSelecionada.room?.number || "N/A"}
+                </p>
+                <p>
+                  <strong>Tipo:</strong>{" "}
+                  {reservaSelecionada.room?.type || "N/A"}
+                </p>
+                <p>
+                  <strong>Valor Diária:</strong>{" "}
+                  {formatCurrency(reservaSelecionada.room?.dailyRate)}
+                </p>
+                <p>
+                  <strong>Check-in:</strong>{" "}
+                  {formatDateTime(reservaSelecionada.checkin)}
+                </p>
+                <p>
+                  <strong>Check-out:</strong>{" "}
+                  {formatDateTime(reservaSelecionada.checkout)}
+                </p>
+                <p>
+                  <strong>Valor Total:</strong>{" "}
+                  {formatCurrency(reservaSelecionada.totalValue)}
+                </p>
                 <p>
                   <strong>Status:</strong>{" "}
                   <span
-                    className={`px-2 py-1 rounded-full text-xs ${getStatusColor(reservaSelecionada.status)}`}
+                    className={`px-2 py-1 rounded-full text-xs ${getStatusColor(
+                      reservaSelecionada.status
+                    )}`}
                   >
                     {translateStatus(reservaSelecionada.status)}
                   </span>
                 </p>
-                <p><strong>Criado em:</strong> {formatDateTime(reservaSelecionada.createAt)}</p>
+                <p>
+                  <strong>Criado em:</strong>{" "}
+                  {formatDateTime(reservaSelecionada.createAt)}
+                </p>
 
                 <button
                   onClick={() => setReservaSelecionada(null)}

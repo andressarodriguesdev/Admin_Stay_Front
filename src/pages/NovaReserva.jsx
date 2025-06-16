@@ -169,7 +169,7 @@ export default function NovaReserva({ onVoltar, onLogout, onNavigate }) {
                 value={reserva.clienteId}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-lg shadow bg-[#e8e4f4] focus:outline-none"
+                className="w-full p-2 rounded-lg shadow bg-[#ffffff] focus:outline-none"
                 disabled={loadingClientes}
               >
                 <option value="">{loadingClientes ? "Carregando clientes..." : "Selecione o cliente"}</option>
@@ -190,7 +190,7 @@ export default function NovaReserva({ onVoltar, onLogout, onNavigate }) {
                 value={reserva.numeroQuarto}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-lg shadow bg-[#e8e4f4] focus:outline-none"
+                className="w-full p-2 rounded-lg shadow bg-[#fffff] focus:outline-none"
                 disabled={loadingQuartos}
               >
                 <option value="">{loadingQuartos ? "Carregando quartos..." : "Selecione o quarto"}</option>
@@ -212,7 +212,7 @@ export default function NovaReserva({ onVoltar, onLogout, onNavigate }) {
                 value={reserva.checkIn}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-lg shadow bg-[#e8e4f4] focus:outline-none"
+                className="w-full p-2 rounded-lg shadow bg-[#ffff] focus:outline-none"
               />
             </div>
 
@@ -226,7 +226,7 @@ export default function NovaReserva({ onVoltar, onLogout, onNavigate }) {
                 value={reserva.checkOut}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-lg shadow bg-[#e8e4f4] focus:outline-none"
+                className="w-full p-2 rounded-lg shadow bg-[#ffff] focus:outline-none"
               />
             </div>
 
@@ -240,7 +240,7 @@ export default function NovaReserva({ onVoltar, onLogout, onNavigate }) {
               <button
                 type="button"
                 onClick={onVoltar}
-                className="w-full text-sm py-2 font-medium text-[#666] bg-[#F1EDF8] rounded-full hover:bg-[#e2dbee] transition duration-300 shadow"
+                className="w-full py-2 text-sm font-medium bg-blue-200 text-blue-800 rounded-full shadow hover:bg-blue-300 hover:text-blue-900 transition-colors duration-300 "
               >
                 Cancelar / Voltar
               </button>

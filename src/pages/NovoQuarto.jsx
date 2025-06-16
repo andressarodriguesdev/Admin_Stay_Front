@@ -90,7 +90,7 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
                 placeholder="ex, 101"
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg bg-[#E5E2F5] shadow-md placeholder:text-[#888] text-[#1E1E1E] focus:outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-[#ffff] shadow-md placeholder:text-[#888] text-[#1E1E1E] focus:outline-none"
                 required
               />
             </div>
@@ -105,7 +105,7 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
                 placeholder="ex, 150.00"
                 value={valor}
                 onChange={(e) => setValor(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg bg-[#E5E2F5] shadow-md placeholder:text-[#888] text-[#1E1E1E] focus:outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-[#ffff] shadow-md placeholder:text-[#888] text-[#1E1E1E] focus:outline-none"
                 required
               />
             </div>
@@ -117,7 +117,7 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
               <select
                 value={tipo}
                 onChange={(e) => setTipo(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg bg-[#E5E2F5] shadow-md text-[#1E1E1E] focus:outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-[#ffff] shadow-md text-[#1E1E1E] focus:outline-none"
                 required
               >
                 <option value="">Selecione o tipo de quarto</option>
@@ -138,7 +138,7 @@ export default function NovoQuarto({ onLogout, onNavigate, quarto }) {
               <button
                 type="button"
                 onClick={() => onNavigate("dashboard")}
-                className="w-full text-sm py-2 font-medium text-[#666] bg-[#F1EDF8] rounded-full hover:bg-[#e2dbee] transition duration-300 shadow"
+                className="w-full py-2 text-sm font-medium bg-blue-200 text-blue-800 rounded-full shadow hover:bg-blue-300 hover:text-blue-900 transition-colors duration-300 "
               >
                 Cancelar / Voltar
               </button>

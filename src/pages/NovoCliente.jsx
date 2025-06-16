@@ -107,7 +107,7 @@ export default function NovoCliente({
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="ex, Maria Joaquina Oliveira"
                 required
-                className="mt-1 w-full px-4 py-2 rounded-md bg-[#E5E2F5] shadow-sm focus:outline-none"
+                className="mt-1 w-full px-4 py-2 rounded-md bg-[#ffff] shadow-sm focus:outline-none"
               />
             </div>
 
@@ -121,7 +121,7 @@ export default function NovoCliente({
                 onChange={handleCpfChange}
                 placeholder="000.000.000-00"
                 required
-                className="mt-1 w-full px-4 py-2 rounded-md bg-[#E5E2F5] shadow-sm focus:outline-none"
+                className="mt-1 w-full px-4 py-2 rounded-md bg-[#ffff] shadow-sm focus:outline-none"
               />
             </div>
 
@@ -135,7 +135,7 @@ export default function NovoCliente({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="ex, ana@gmail.com"
                 required
-                className="mt-1 w-full px-4 py-2 rounded-md bg-[#E5E2F5] shadow-sm focus:outline-none"
+                className="mt-1 w-full px-4 py-2 rounded-md bg-[#ffff] shadow-sm focus:outline-none"
               />
             </div>
 
@@ -149,7 +149,7 @@ export default function NovoCliente({
                 onChange={(e) => setTelefone(e.target.value)}
                 placeholder="ex, (61) 99999-9999"
                 required
-                className="mt-1 w-full px-4 py-2 rounded-md bg-[#E5E2F5] shadow-sm focus:outline-none"
+                className="mt-1 w-full px-4 py-2 rounded-md bg-[#ffff] shadow-sm focus:outline-none"
               />
             </div>
 
@@ -161,7 +161,7 @@ export default function NovoCliente({
                 value={observacoes}
                 onChange={(e) => setObservacoes(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-2 rounded-lg bg-[#E5E2F5] shadow-md text-[#1E1E1E] focus:outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-[#ffff] shadow-md text-[#1E1E1E] focus:outline-none"
               />
             </div>
 
@@ -172,10 +172,10 @@ export default function NovoCliente({
               >
                 {cliente ? "Atualizar Cliente" : "Salvar"}
               </button>
-              <button
+                <button
                 type="button"
                 onClick={onVoltar}
-                className="w-full text-sm py-2 font-medium text-[#666] bg-[#F1EDF8] rounded-full hover:bg-[#e2dbee] transition duration-300 shadow"
+                className="w-full py-2 text-sm font-medium bg-blue-200 text-blue-800 rounded-full shadow hover:bg-blue-300 hover:text-blue-900 transition-colors duration-300 "
               >
                 Cancelar / Voltar
               </button>
